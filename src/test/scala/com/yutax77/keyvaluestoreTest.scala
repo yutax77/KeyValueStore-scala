@@ -6,8 +6,9 @@ class KeyValueStoreTest extends FlatSpec {
         val store = new KVStore();
         store.put("A", "val1")
         store.put("B", "val2")
-        assert(store.get("A") === "val1")
-        assert(store.get("B") === "val2")
+        assert(store.get("A") === Some("val1"))
+        assert(store.get("B") === Some("val2"))
+        assert(store.get("C") === None)
     }
 
     it should "throw IllegalArgumentException by put Null key" in {
@@ -20,7 +21,7 @@ class KeyValueStoreTest extends FlatSpec {
     it should "put null value" in {
         val store = new KVStore()
         store.put("A", null)
-        assert(store.get("A") === null)
+        assert(store.get("A") === Some(null))
     }
 
     it should "dumped stored items" in {
@@ -30,5 +31,18 @@ class KeyValueStoreTest extends FlatSpec {
 
         val expected = List(("A", "val1"), ("B", "val2"))
         assert(store.dumpImpl() === expected)
+    }
+
+    it should "delete key-value" in {
+        val store = new KVStore()
+        store.put("A", "val1")
+        store.put("B", "val2")
+
+        assert(store.get("A") === Some("val1"))
+        assert(store.get("B") === Some("val2"))
+
+        store.delete("A")
+        assert(store.get("A") === None)
+        assert(store.get("B") === Some("val2"))
     }
 }

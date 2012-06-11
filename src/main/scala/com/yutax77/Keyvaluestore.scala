@@ -11,8 +11,8 @@ class KVStore {
         stored = stored + (key -> value)
     }
 
-    def get(key:String):String = {
-        return stored(key)
+    def get(key:String):Option[String] = {
+        return stored.get(key)
     }
 
     def dump():Unit = {
@@ -29,5 +29,9 @@ class KVStore {
         }
 
         buf.toList
+    }
+
+    def delete(key:String): Unit = {
+        stored = stored - key
     }
 }
