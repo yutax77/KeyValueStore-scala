@@ -32,6 +32,9 @@ class KVStore {
     }
 
     def delete(key:String): Unit = {
+        if(key == null)
+          throw new IllegalArgumentException()
+
         stored = stored - key
     }
 }

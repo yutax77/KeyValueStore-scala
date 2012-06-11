@@ -46,4 +46,11 @@ class KeyValueStoreTest extends FlatSpec {
         assert(store.get("A") === None)
         assert(store.get("B") === Some("val2"))
     }
+
+    it should "throw IllegalArgumentException by delete Null key" in {
+        val store = new KVStore()
+        intercept[IllegalArgumentException] {
+            store.delete(null)
+        }
+    }
 }
