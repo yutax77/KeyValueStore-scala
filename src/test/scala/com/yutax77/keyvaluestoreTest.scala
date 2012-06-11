@@ -42,6 +42,7 @@ class KeyValueStoreTest extends FlatSpec {
         assert(store.get("B") === Some("val2"))
 
         store.delete("A")
+        store.delete("C")
         assert(store.get("A") === None)
         assert(store.get("B") === Some("val2"))
     }
