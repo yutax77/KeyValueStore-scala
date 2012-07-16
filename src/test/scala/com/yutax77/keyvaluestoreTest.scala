@@ -53,4 +53,29 @@ class KeyValueStoreTest extends FlatSpec {
             store.delete(null)
         }
     }
+
+    it should "be update value By already exist key" in {
+        val store = new KVStore()
+        store.put("A", "val1")
+        assert(store.get("A") === Some("val1"))
+
+        store.put("A", "val100")
+        assert(store.get("A") === Some("val100"))
+    }
+
+    it should "be put multi key-values" in {
+        val store = new KVStore()
+        val list = List(("A", "val1"), ("B", "val2"), ("A", "val100"))
+        store.putList(list)
+        assert(store.get("A") === Some("val100"))
+        assert(store.get("B") === Some("val2"))
+    }
+
+    it should "be throw exception by include null value " in {
+        val store = new KVStore()
+        val list = List(("A", "val1"), (null, "val2"))
+        intercept[IllegalArgumentException] {
+            store.putList(list)
+        }
+    }
 }

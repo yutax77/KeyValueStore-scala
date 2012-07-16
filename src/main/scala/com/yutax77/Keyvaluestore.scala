@@ -11,6 +11,12 @@ class KVStore {
         stored = stored + (key -> value)
     }
 
+    def putList(list:List[(String, String)]):Unit = {
+      list.foreach{ kv =>
+        put(kv._1, kv._2)
+      }
+    }
+    
     def get(key:String):Option[String] = {
         return stored.get(key)
     }
