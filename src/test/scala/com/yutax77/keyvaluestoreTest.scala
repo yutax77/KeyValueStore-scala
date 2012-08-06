@@ -29,7 +29,7 @@ class KeyValueStoreTest extends FlatSpec {
         store.put("A", "val1")
         store.put("B", "val2")
 
-        val expected = List(("A", "val1"), ("B", "val2"))
+        val expected = List(("B", "val2"), ("A", "val1"))
         assert(store.dumpImpl() === expected)
     }
 
